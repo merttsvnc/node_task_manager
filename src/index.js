@@ -43,6 +43,23 @@ app.post('/tasks', (req, res) => {
     .catch((err) => res.status(400).send(err))
 })
 
+app.get('/tasks', (req, res) => {
+  Task.find({})
+    .then((tasks) => res.send(tasks))
+    .catch((err) => res.status(500).send(err))
+})
+
+app.get('/tasks/:id', (req, res) => {
+  const { id } = req.params
+
+  Task.findById(id)
+    .then((task) => {
+      if (!task) return res.status(404).send()
+      res.send(task)
+    })
+    .catch((err) => res.status(500).send(err))
+})
+
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
 })
