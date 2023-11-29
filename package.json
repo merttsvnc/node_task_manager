@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/merttsvnc/node_task_manager#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.1",
