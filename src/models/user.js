@@ -46,8 +46,13 @@ const userSchema = new mongoose.Schema({
   ],
 })
 
-// getPublicProfile is a custom method to hide private data
-userSchema.methods.getPublicProfile = function () {
+/**
+ * Converts a user object to a plain JavaScript object.
+ *
+ * @param {Object} user - The user object to convert.
+ * @returns {Object} - The plain JavaScript object representation of the user.
+ */
+userSchema.methods.toJSON = function () {
   const user = this
   const userObject = user.toObject()
   delete userObject.password
