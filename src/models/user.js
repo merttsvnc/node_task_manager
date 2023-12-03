@@ -46,6 +46,15 @@ const userSchema = new mongoose.Schema({
   ],
 })
 
+// getPublicProfile is a custom method to hide private data
+userSchema.methods.getPublicProfile = function () {
+  const user = this
+  const userObject = user.toObject()
+  delete userObject.password
+  delete userObject.tokens
+  return userObject
+}
+
 // custom method to generate authToken
 userSchema.methods.generateAuthToken = async function () {
   const user = this

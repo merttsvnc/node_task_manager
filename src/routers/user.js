@@ -20,7 +20,7 @@ router.post('/users/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(email, password)
     const token = await user.generateAuthToken()
-    res.send({ user, token })
+    res.send({ user: user.getPublicProfile(), token })
   } catch (err) {
     res.status(400).send()
   }
@@ -30,6 +30,18 @@ router.post('/users/logout', auth, async (req, res) => {
   const { user, token } = req
   try {
     user.tokens = user.tokens.filter((t) => t.token !== token)
+    await user.save()
+    res.send()
+  } catch (err) {
+    res.status(500).send()
+  }
+})
+
+// Logout from all sessions
+router.post('/users/logoutAll', auth, async (req, res) => {
+  const { user } = req
+  try {
+    user.tokens = []
     await user.save()
     res.send()
   } catch (err) {
