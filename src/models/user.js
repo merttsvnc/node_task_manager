@@ -46,6 +46,13 @@ const userSchema = new mongoose.Schema({
   ],
 })
 
+// virtual property
+userSchema.virtual('tasks', {
+  ref: 'Task',
+  localField: '_id',
+  foreignField: 'owner',
+})
+
 /**
  * Converts a user object to a plain JavaScript object.
  *

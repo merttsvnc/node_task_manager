@@ -10,6 +10,12 @@ const taskSchema = new mongoose.Schema({
     type: String,
     default: false,
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    // This is the reference to the User model
+    ref: 'User',
+  },
 })
 
 const Task = mongoose.model('Task', taskSchema)
